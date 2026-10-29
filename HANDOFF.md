@@ -20,6 +20,7 @@ The repository currently contains project documentation files:
 - `AGENTS.md`: agent instructions and mandatory inspection workflow.
 - `HANDOFF.md`: this file; architecture, requirements, next steps, and change log.
 - `README.md`: project overview and architecture/roadmap.
+- `GANG_SYSTEM.md`: design specification for gang factions, territories, relationships, player reputation, squad AI, and performance.
 
 The repository tree was inspected on 2026-10-29 and these were the files returned by GitHub. No `.uproject`, `Source/` directory, or gameplay C++ implementation appeared in that tree. Re-check the live tree before acting because the repository may have changed since this note was written.
 
@@ -51,6 +52,10 @@ Do not claim compilation or a playable build. Before implementing engine source,
 ### Crime and wanted system
 - Support crime events, witnesses, wanted-level escalation/decay, and future police response.
 - Crime detection, witness visibility, wanted levels, and police response should remain separate, testable responsibilities.
+
+## Gang system design
+
+A design specification is now documented in `GANG_SYSTEM.md`. It covers gang identity/runtime state, territory influence and contested control, inter-gang relations, player reputation and witness-based memory, layered gang/squad/member AI, event-driven escalation, distance-based simulation, and integration with crime/police, vehicles, missions, economy, and save/load. This is design only; no gang C++ implementation or UE build has been completed.
 
 ## Suggested architecture
 
@@ -90,6 +95,13 @@ Whenever a change is actually made to this repository:
 5. If the handoff itself is changed in a commit, include that commit in the log after the resulting SHA is known (a following documentation commit may be used if necessary).
 
 ## Change log
+
+### 2026-10-29 — Gang system design added
+- Added `GANG_SYSTEM.md` with the proposed gang/faction simulation design, architecture, integration contracts, phased implementation plan, and acceptance criteria.
+- Commit: `2dfdbab64280d20211451c37fad67dc3cf66f661`.
+- Validation: GitHub accepted the documentation commit. No Unreal build or gameplay tests were run; the document is a design specification, not implementation.
+- Next step: confirm the actual Unreal project/module and then implement the first testable gang data/state milestone in C++.
+
 
 ### 2026-10-29 — Agent discovery and handoff synchronization
 - Added `AGENTS.md` with mandatory instructions for agents to read the handoff and README and inspect the repository before editing.
