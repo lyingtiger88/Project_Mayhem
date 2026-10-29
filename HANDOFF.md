@@ -101,6 +101,11 @@ Whenever a change is actually made to this repository:
 - Validation: GitHub file reads and root-tree inspection succeeded. No Unreal build or gameplay tests were run.
 - Next step: use the agent's explicit prompt to read the three files and report repository contents; confirm the Unreal project/module before writing gameplay C++.
 
+### 2026-10-29 — Handoff status refresh
+- Updated this handoff to reflect the inspected live repository tree, document the required handoff synchronization rule, and record the AGENTS/README discovery improvements above.
+- Commit: `a9482d2079d9ffc590fe34dc68e23d138ac095b3`.
+- Validation: the update was accepted by GitHub; no Unreal build or gameplay tests were run.
+
 ## Working rules for agents
 
 - Read current source before editing; do not overwrite files based on assumptions.
