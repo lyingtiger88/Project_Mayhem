@@ -1,6 +1,8 @@
 # Project Mayhem
 
 > **AI agents and contributors: start with [AGENTS.md](AGENTS.md), then read [HANDOFF.md](HANDOFF.md).**
+>
+> Gang/faction gameplay design: [GANG_SYSTEM.md](GANG_SYSTEM.md).
 
 
 Open-world action game prototype built with Unreal Engine 5.8 and C++.
