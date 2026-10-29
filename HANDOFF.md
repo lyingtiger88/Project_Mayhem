@@ -97,6 +97,8 @@ Whenever a change is actually made to this repository:
 ## Change log
 
 ### 2026-10-29 — Gang system design added
+- Updated `README.md` to link directly to `GANG_SYSTEM.md`.
+- README commit: `5a78b80c7825a89a247fe7f3d03e9a70abc8ba55`.
 - Added `GANG_SYSTEM.md` with the proposed gang/faction simulation design, architecture, integration contracts, phased implementation plan, and acceptance criteria.
 - Commit: `2dfdbab64280d20211451c37fad67dc3cf66f661`.
 - Validation: GitHub accepted the documentation commit. No Unreal build or gameplay tests were run; the document is a design specification, not implementation.
