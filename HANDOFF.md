@@ -1,6 +1,6 @@
 # Project Mayhem — Agent Handoff
 
-This file is the starting point for any shared AI agent or contributor working on this repository. Read this file and `README.md` before making changes.
+This is the live handoff and change log for any shared AI agent or contributor working on this repository. Read `AGENTS.md`, this file, and `README.md` before making changes.
 
 ## Project identity
 
@@ -16,14 +16,20 @@ Project Mayhem is an independent project. Do not merge its assumptions, source f
 
 ## Verified repository state
 
-At handoff creation, the repository was empty before the initial documentation commit. The current known commit adds only `README.md` with the agreed architecture and roadmap.
+The repository currently contains project documentation files:
+- `AGENTS.md`: agent instructions and mandatory inspection workflow.
+- `HANDOFF.md`: this file; architecture, requirements, next steps, and change log.
+- `README.md`: project overview and architecture/roadmap.
+
+The repository tree was inspected on 2026-10-29 and these were the files returned by GitHub. No `.uproject`, `Source/` directory, or gameplay C++ implementation appeared in that tree. Re-check the live tree before acting because the repository may have changed since this note was written.
 
 - Architecture documented: yes
-- Gameplay C++ source files present: not yet verified; the repository was empty before README was added, so treat gameplay source as not implemented unless a fresh repository inspection proves otherwise
-- Unreal project file (`.uproject`): not present in the initial empty repository
-- Build/test status: not run; do not claim compilation or a playable build
+- Gameplay C++ implementation: not present in the inspected tree
+- Unreal project file (`.uproject`): not present in the inspected tree
+- Build/test status: no Unreal build or gameplay test has been run from this workflow
+- Playable build: not established
 
-Before implementing code, inspect the latest repository tree and commit history. Do not assume the project module name. If there is no `.uproject`, do not invent a module export macro or claim code is ready to compile. Ask for or establish the actual Unreal project/module identity before adding engine source that depends on it.
+Do not claim compilation or a playable build. Before implementing engine source, confirm whether the actual Unreal project/module exists elsewhere or get explicit approval to establish a project skeleton. Never invent the module name or API export macro.
 
 ## Agreed gameplay requirements
 
@@ -66,13 +72,34 @@ Prefer small, coherent classes and explicit interfaces. Avoid a single giant AI 
 ## Recommended next actions
 
 1. Inspect the current `main` tree and latest commit.
-2. Confirm whether an Unreal Engine 5.8 `.uproject` and module already exist. If absent, coordinate before creating a project skeleton.
+2. Confirm whether an Unreal Engine 5.8 `.uproject` and module exist. If absent, coordinate before creating a project skeleton.
 3. Establish shared enums/structs for driver goals, navigation modes, driver personality, and crime events.
 4. Implement the road-network data model and route query interface before building advanced driver behavior.
 5. Add pedestrian NavMesh movement with vehicle-aware crossing/avoidance.
 6. Implement road-following vehicle AI with steering, braking, throttle, hazard sensing, and stuck recovery.
 7. Add fear/criminal behavior and goal-driven detours only after ordinary driving is stable.
 8. Compile in the actual UE 5.8 project and report exact results, including errors. Never describe uncompiled code as tested.
+
+## Change synchronization rule
+
+Whenever a change is actually made to this repository:
+1. Update this handoff in the same work session with the change summary, files changed, commit SHA/link, and validation status.
+2. Update the current status and next steps if the change affects them.
+3. Keep `AGENTS.md`, `HANDOFF.md`, and `README.md` consistent when their information overlaps.
+4. Do not log a change as completed until the GitHub write succeeds. Distinguish planned work from committed work.
+5. If the handoff itself is changed in a commit, include that commit in the log after the resulting SHA is known (a following documentation commit may be used if necessary).
+
+## Change log
+
+### 2026-10-29 — Agent discovery and handoff synchronization
+- Added `AGENTS.md` with mandatory instructions for agents to read the handoff and README and inspect the repository before editing.
+- Updated `README.md` to link to `AGENTS.md` and `HANDOFF.md` at the top.
+- Verified via GitHub that the root tree contains `AGENTS.md`, `HANDOFF.md`, and `README.md`.
+- Commits:
+  - `efd9c9963871eaaf6f9450ef445cfdbbab74ac0c` — add root agent instructions (the file's current blob SHA may differ from the commit SHA).
+  - `946980e7adb7d7795b7c4acf244bd7819b87c766` — link agent instructions from README.
+- Validation: GitHub file reads and root-tree inspection succeeded. No Unreal build or gameplay tests were run.
+- Next step: use the agent's explicit prompt to read the three files and report repository contents; confirm the Unreal project/module before writing gameplay C++.
 
 ## Working rules for agents
 
