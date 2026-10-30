@@ -20,7 +20,7 @@ The repository currently contains project documentation files:
 - `AGENTS.md`: agent instructions and mandatory inspection workflow.
 - `HANDOFF.md`: this file; architecture, requirements, next steps, and change log.
 - `README.md`: project overview and architecture/roadmap.
-- `GANG_SYSTEM.md`: design specification for gang factions, territories, relationships, player reputation, squad AI, and performance.
+- `GANG_SYSTEM.md`: design specification for gang factions, territories, relationships, player reputation, squad AI, and performance.\n- `ANIMAL_SYSTEM.md`: design specification for domestic animals, wildlife, species behavior, habitats, population simulation, and world interactions.
 
 The repository tree was inspected on 2026-10-29 and these were the files returned by GitHub. No `.uproject`, `Source/` directory, or gameplay C++ implementation appeared in that tree. Re-check the live tree before acting because the repository may have changed since this note was written.
 
@@ -56,6 +56,10 @@ Do not claim compilation or a playable build. Before implementing engine source,
 ## Gang system design
 
 A design specification is now documented in `GANG_SYSTEM.md`. It covers gang identity/runtime state, territory influence and contested control, inter-gang relations, player reputation and witness-based memory, layered gang/squad/member AI, event-driven escalation, distance-based simulation, and integration with crime/police, vehicles, missions, economy, and save/load. This is design only; no gang C++ implementation or UE build has been completed.
+
+## Animal and wildlife system design
+
+A design specification is now documented in ANIMAL_SYSTEM.md. It covers domestic/farm animals and wild species; data-driven species profiles; needs and species-specific behavior; perception and reactions; ownership, trust, care and work roles; habitat-based spawning and population limits; herd/pack/flock behavior; interactions with pedestrians, vehicles, gangs and crime; and distance-based simulation/performance. This is design only; no animal C++ implementation or UE build has been completed.
 
 ## Suggested architecture
 
@@ -95,6 +99,14 @@ Whenever a change is actually made to this repository:
 5. If the handoff itself is changed in a commit, include that commit in the log after the resulting SHA is known (a following documentation commit may be used if necessary).
 
 ## Change log
+
+### 2026-10-30 — Animal and wildlife system design added
+- Added ANIMAL_SYSTEM.md with the domestic-animal and wildlife design specification, proposed C++ architecture, integration points, performance model, development phases, and acceptance criteria.
+- Commit: cbe6e559f0913d1b0b55a59902def644b0cd3d16.
+- Updated README.md to link to ANIMAL_SYSTEM.md.
+- README commit: 99e1f9812acb3e5c4abf3dff85583a60af1f631d.
+- Validation: GitHub accepted both documentation commits and the files were written. No Unreal build or gameplay tests were run; this is design documentation only.
+- Next step: confirm the actual UE 5.8 .uproject and module before implementing the first domestic and wildlife species in C++.
 
 ### 2026-10-29 — Gang system design added
 - Updated `README.md` to link directly to `GANG_SYSTEM.md`.
