@@ -109,6 +109,17 @@ Whenever a change is actually made to this repository:
 4. Do not log a change as completed until the GitHub write succeeds. Distinguish planned work from committed work.
 5. If the handoff itself is changed in a commit, include that commit in the log after the resulting SHA is known (a following documentation commit may be used if necessary).
 
+## Current art and environment setup
+
+- Approved art direction: realistic / photorealistic.
+- Initial asset sourcing: free assets only.
+- Added Content/Python/Build_PM_FirstDistrict.py. It creates a repeatable 300 m x 300 m urban greybox using Unreal built-in primitive meshes, road strips, sidewalks, lane markings, crosswalks, placeholder buildings, lamps/trees, PlayerStart, and NavMeshBoundsVolume. It removes only actors carrying the PM_Generated_Blockout tag when rerun.
+- Added Docs/ASSET_PIPELINE.md and Docs/ASSET_CREDITS.md.
+- ProjectMayhem.uproject enables PythonScriptPlugin and EditorScriptingUtilities for editor automation.
+- Important distinction: no external photorealistic asset pack has been downloaded or migrated into the project yet. The generated district is a greybox, not final art.
+- Recommended free city source: Epic City Sample updated for UE 5.8; migrate selected assets through Unreal Editor's Asset Migration workflow, not filesystem copying.
+- Manual validation required: restart Unreal Editor after plugin activation, execute Content/Python/Build_PM_FirstDistrict.py from Tools > Execute Python Script, inspect the generated map, and save/confirm it.
+
 ## Change log
 
 ### 2026-10-30 — Procedural and physics-assisted animation design added
@@ -176,6 +187,15 @@ Whenever a change is actually made to this repository:
 - Commit: eafd5530d6e492a712cdbc90cac511ffaa79d15f.
 - Validation: GitHub accepted the commit and main was advanced using an expected-head check. No UE 5.8 compile, editor launch, runtime test, or playable build has been performed.
 - Next step: open ProjectMayhem.uproject in Unreal Engine 5.8, generate project files, compile the Development Editor target, and resolve any toolchain/API issues before expanding gameplay code.
+
+### 2026-10-30 — First district editor generator and free asset pipeline
+- Added Content/Python/Build_PM_FirstDistrict.py for repeatable editor-side city greyboxing from engine primitive meshes.
+- Added Docs/ASSET_PIPELINE.md and Docs/ASSET_CREDITS.md.
+- Enabled PythonScriptPlugin and EditorScriptingUtilities in ProjectMayhem.uproject.
+- Updated README.md with the asset pipeline and first-district setup.
+- Commit: 851f9a8931ea12c22ccfd499857347ae063cbfaf.
+- Validation: GitHub accepted all files and advanced main. The script has not yet been executed in the user's Unreal Editor; no external asset pack has been downloaded or migrated. The generated scene is a greybox, not photorealistic final art.
+- Next step: restart UE 5.8, run the editor Python script, inspect/save the generated map, then migrate selected free City Sample assets through Unreal's migration workflow.
 
 ## Working rules for agents
 
