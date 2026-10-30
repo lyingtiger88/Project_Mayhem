@@ -1,0 +1,13 @@
+{
+  "FileVersion": 3,
+  "EngineAssociation": "5.8",
+  "Category": "Games",
+  "Description": "Project Mayhem - open-world action and living-world simulation.",
+  "Modules": [
+    {
+      "Name": "ProjectMayhem",
+      "Type": "Runtime",
+      "LoadingPhase": "Default"
+    }
+  ]
+}
