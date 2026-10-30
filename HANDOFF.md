@@ -59,7 +59,7 @@ A design specification is now documented in `GANG_SYSTEM.md`. It covers gang ide
 
 ## Animal and wildlife system design
 
-A design specification is now documented in ANIMAL_SYSTEM.md. It covers domestic/farm animals and wild species; data-driven species profiles; needs and species-specific behavior; perception and reactions; ownership, trust, care and work roles; habitat-based spawning and population limits; herd/pack/flock behavior; interactions with pedestrians, vehicles, gangs and crime; and distance-based simulation/performance. This is design only; no animal C++ implementation or UE build has been completed.
+A design specification is documented in ANIMAL_SYSTEM.md. It covers domestic/farm animals and wildlife; data-driven species profiles; needs and species-specific behavior; perception and reactions; ownership, trust, care and work roles; habitat-based spawning and population limits; herd/pack/flock behavior; interactions with pedestrians, vehicles, gangs and crime; and distance-based simulation/performance. The bird design has now been expanded to cover urban, farm, wild, raptor, and water-bird groups; grounded movement, hopping, takeoff, powered flight, gliding/soaring, landing, perching, roosting, nesting, flock cohesion/separation/alignment, alarm propagation, and optional migration. Flight and perch selection are explicitly separate from ordinary ground NavMesh movement. This remains design only; no animal C++ implementation or UE build has been completed.
 
 ## Suggested architecture
 
@@ -99,6 +99,14 @@ Whenever a change is actually made to this repository:
 5. If the handoff itself is changed in a commit, include that commit in the log after the resulting SHA is known (a following documentation commit may be used if necessary).
 
 ## Change log
+
+### 2026-10-30 — Bird and flight behavior design expanded
+- Expanded ANIMAL_SYSTEM.md with first-class bird categories (urban, domestic/farm, wild, raptors, and water birds), species-appropriate habitat, flight capabilities, takeoff/landing, perching, nesting/roosting, flock behavior, reactions, and provisional C++ capabilities.
+- Added acceptance criteria for non-teleporting bird flight/perching and flock behavior with individual variation.
+- ANIMAL_SYSTEM.md commit: 97932c6776b852598ffa723a0ef0b9aa57de4fb3.
+- Validation: GitHub accepted the documentation update. No Unreal build or gameplay tests were run; this remains design documentation only.
+- Next step: confirm the actual UE 5.8 .uproject and module before implementing bird movement or animal gameplay code in C++.
+
 
 ### 2026-10-30 — Animal and wildlife system design added
 - Added ANIMAL_SYSTEM.md with the domestic-animal and wildlife design specification, proposed C++ architecture, integration points, performance model, development phases, and acceptance criteria.
