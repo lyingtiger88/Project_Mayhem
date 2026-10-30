@@ -99,6 +99,12 @@ Whenever a change is actually made to this repository:
 5. If the handoff itself is changed in a commit, include that commit in the log after the resulting SHA is known (a following documentation commit may be used if necessary).
 
 ## Change log
+### 2026-10-30 — Insect scope limited to four types
+- Updated ANIMAL_SYSTEM.md to restrict insects to cockroaches, butterflies, bees, and ants, with lightweight behavior definitions and explicit population/performance limits.
+- ANIMAL_SYSTEM.md commit: 752d917683d4de4b4e40550799861bc0e6375970.
+- Validation: GitHub accepted the animal design update. No Unreal build or gameplay tests were run.
+
+
 
 ### 2026-10-30 — Bird and flight behavior design expanded
 - Expanded ANIMAL_SYSTEM.md with first-class bird categories (urban, domestic/farm, wild, raptors, and water birds), species-appropriate habitat, flight capabilities, takeoff/landing, perching, nesting/roosting, flock behavior, reactions, and provisional C++ capabilities.
