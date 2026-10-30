@@ -3,6 +3,7 @@
 > **AI agents and contributors: start with [AGENTS.md](AGENTS.md), then read [HANDOFF.md](HANDOFF.md).**
 >
 > Architecture and delivery plan: [Docs/ARCHITECTURE.md](Docs/ARCHITECTURE.md) and [Docs/ROADMAP.md](Docs/ROADMAP.md).
+> Free realistic asset workflow: [Docs/ASSET_PIPELINE.md](Docs/ASSET_PIPELINE.md).
 > Gang/faction gameplay design: [GANG_SYSTEM.md](GANG_SYSTEM.md).
 > Animal and wildlife gameplay design: [ANIMAL_SYSTEM.md](ANIMAL_SYSTEM.md).
 > Procedural and physics-assisted animation design: [ANIMATION_SYSTEM.md](ANIMATION_SYSTEM.md).
@@ -73,6 +74,10 @@ Ordinary drivers usually obey road rules and avoid pedestrians. Personality and 
 6. Add driver personalities, fear, fleeing, pursuit and situational detours.
 7. Add missions, economy and save/load.
 8. Compile and test each integrated milestone in Unreal Engine 5.8.
+
+## First district setup
+
+The editor script at Content/Python/Build_PM_FirstDistrict.py creates a repeatable urban greybox from Unreal's built-in primitive meshes. Follow Docs/ASSET_PIPELINE.md for plugin setup and execution. The greybox is a gameplay prototype, not final photorealistic art.
 
 ## Current status
 
