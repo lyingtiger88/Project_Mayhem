@@ -61,6 +61,10 @@ A design specification is now documented in `GANG_SYSTEM.md`. It covers gang ide
 
 A design specification is documented in ANIMAL_SYSTEM.md. It covers domestic/farm animals and wildlife; data-driven species profiles; needs and species-specific behavior; perception and reactions; ownership, trust, care and work roles; habitat-based spawning and population limits; herd/pack/flock behavior; interactions with pedestrians, vehicles, gangs and crime; and distance-based simulation/performance. The bird design has now been expanded to cover urban, farm, wild, raptor, and water-bird groups; grounded movement, hopping, takeoff, powered flight, gliding/soaring, landing, perching, roosting, nesting, flock cohesion/separation/alignment, alarm propagation, and optional migration. Flight and perch selection are explicitly separate from ordinary ground NavMesh movement. This remains design only; no animal C++ implementation or UE build has been completed.
 
+## Procedural animation and active-ragdoll design
+
+A design specification is now documented in ANIMATION_SYSTEM.md. It targets fluid locomotion, procedural pose correction, impact-aware physical reactions, balance recovery, partial physics, and selective Euphoria-like active-ragdoll behavior. It also defines smooth blending, character variation, networking considerations, and open-world performance tiers. This is an original design direction inspired by the qualities associated with Euphoria, not a reproduction of proprietary middleware. No animation C++ implementation, assets, UE build, or runtime test has been completed.
+
 ## Suggested architecture
 
 Names are provisional until the real Unreal module name is confirmed.
@@ -99,6 +103,14 @@ Whenever a change is actually made to this repository:
 5. If the handoff itself is changed in a commit, include that commit in the log after the resulting SHA is known (a following documentation commit may be used if necessary).
 
 ## Change log
+
+### 2026-10-30 — Procedural and physics-assisted animation design added
+- Added ANIMATION_SYSTEM.md covering authored animation foundations, procedural pose adjustment, impact-aware physics response, balance recovery, selective active ragdoll, Euphoria-like adaptive behavior goals, smooth blending, character variation, and open-world performance tiers.
+- ANIMATION_SYSTEM.md commit: 6e3d57e2ebc63c199b188bd25c035f2bc2dc8031.
+- Updated README.md to link to ANIMATION_SYSTEM.md.
+- README commit: a27fe932e37041de1e72fb8b44f858848c757a69.
+- Validation: GitHub accepted both documentation commits. No Unreal build, runtime profiling, or animation tests were run; this is design documentation only.
+
 ### 2026-10-30 — Insect scope limited to four types
 - Updated ANIMAL_SYSTEM.md to restrict insects to cockroaches, butterflies, bees, and ants, with lightweight behavior definitions and explicit population/performance limits.
 - ANIMAL_SYSTEM.md commit: 752d917683d4de4b4e40550799861bc0e6375970.
