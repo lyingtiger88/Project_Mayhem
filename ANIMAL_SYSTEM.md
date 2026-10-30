@@ -37,11 +37,68 @@ Candidate species depend on the authored map and its biomes:
 - Foxes and wolves.
 - Bears only where the setting and map justify them.
 - Rabbits and other small mammals.
-- Birds, with grounded, perched, flocking, and short-flight behaviors as appropriate.
+- Urban birds: pigeons, sparrows, crows, gulls, and other species suited to the city setting.
+- Domestic and farm birds: chickens, roosters, ducks, geese, and turkeys.
+- Wild and water birds: locally appropriate songbirds, raptors (such as hawks, falcons, and eagles), owls, storks, herons, and waterfowl.
+- Species selection must follow the game's region, climate, habitats, and authored world population; this is not a requirement to include every listed bird.
 
 The list is a content proposal, not a promise that every species will appear in every district. Species must match the world's climate, terrain, and setting.
 
-## 3. Shared species definition and runtime state
+## 3. Bird-specific behavior and flight
+
+Birds are a first-class animal category, not merely a generic wildlife entry. They share the animal population, perception, save, and performance foundations, but require flight- and perch-aware behavior.
+
+### Bird groups and habitat
+
+- Urban birds use rooftops, ledges, signs, trees, parks, wires, and street-level feeding areas.
+- Farm birds use coops, yards, barns, ponds, and fenced enclosures.
+- Wild birds use suitable woodland, cliffs, open fields, wetlands, rivers, coastlines, and other map-authored habitats.
+- Raptors need suitable hunting territory and perches; water birds need shoreline or water access where their species requires it.
+- Species profiles must define habitat tags, preferred perch types, flocking tendency, flight capability, and activity periods.
+
+### Flight and movement capabilities
+
+Flight is a distinct movement capability and must not be treated as ordinary ground NavMesh movement. Profiles should distinguish:
+- Grounded movement and walking/hopping.
+- Short hops and low-distance takeoff/landing.
+- Powered flight with tuned speed, acceleration, turning, and stamina/flight-duration limits.
+- Gliding and soaring for species and environments that support them.
+- Hovering only for species whose anatomy and flight style support it.
+- Swimming or diving for suitable water birds.
+
+Takeoff and landing require clearance, reachable destination checks, collision avoidance, and valid landing/perch surfaces. Birds must not snap or teleport between perches as a normal movement solution. If flight navigation is blocked or unavailable, use a grounded fallback only when biologically and spatially appropriate.
+
+### Perching, nesting, and flocking
+
+- Perch candidates include branches, roofs, ledges, poles, wires, rocks, and ground locations, each with suitability and capacity.
+- Perch selection should consider reachability, height, safety, visibility, nearby threats, and crowding.
+- Support resting, roosting, feeding, nesting, and returning to a nest/roost where enabled by the species profile.
+- Flocks use group-level goals with individual variation, spacing, cohesion, separation, and alarm propagation.
+- Flocking must avoid rigid synchronized movement; individuals can react with small delays and imperfect information.
+- Seasonal migration is optional and should be implemented only if the world map, time system, and content justify it. Do not fake migration by despawning a flock without a world-state transition.
+
+### Bird behavior states
+
+Possible states include Grounded, Walking, Hopping, Feeding, Drinking, Alert, Fleeing, Perching, Roosting, TakingOff, Flying, Gliding, Soaring, Circling, Landing, Flocking, Nesting, and FeedingChicks. Only enable states supported by the species profile.
+
+### Reactions and species differences
+
+- Small urban birds generally scatter or take short flights when approached, startled by traffic, or exposed to loud sounds.
+- Pigeons and similar flocking birds can take off together, but with staggered timing and varied trajectories.
+- Crows and other intelligent social birds may investigate sounds, remember repeated threats at a lightweight gameplay level, and communicate alarms.
+- Raptors may perch, scan, circle, and perform species-appropriate hunting dives; they should not attack the player by default.
+- Waterfowl may walk, swim, paddle, take off from water, and land on suitable water surfaces.
+- Domestic poultry may forage on the ground, return to a coop/roost, and scatter when startled.
+
+### Proposed bird-specific C++ capabilities
+
+These are provisional design responsibilities, not confirmed source files or class names:
+- A flight movement component or movement mode for takeoff, powered flight, glide, and landing.
+- A perch-selection capability that queries authored perch points/surfaces and validates clearance.
+- A flock component for cohesion, separation, alignment, group goals, and alarm propagation.
+- Optional nest/roost data and seasonal migration policy, enabled only where required.
+
+## 4. Shared species definition and runtime state
 
 Use a data-driven species definition containing:
 - Stable SpeciesId, display name, category, size class, and habitat tags.
@@ -55,7 +112,7 @@ Use a data-driven species definition containing:
 
 Runtime state may include health, hunger, thirst, fatigue, fear, stress, injury, current task, social group, owner/handler, home area, and last known threats. Do not simulate every need with a per-frame tick; use scheduled updates and meaningful events.
 
-## 4. Behavior model
+## 5. Behavior model
 
 Use a shared animal decision framework with species-specific state transitions. Example states:
 - Idle / Resting
@@ -77,7 +134,7 @@ Not every species supports every state. A rabbit should not use a wolf's combat 
 
 Decision priority should consider immediate danger, injury, essential needs, social bonds, assigned domestic tasks, and ambient activity. Add reaction delays and imperfect perception so animals do not behave like omniscient sensors.
 
-## 5. Perception and reactions
+## 6. Perception and reactions
 
 Animals can use tuned combinations of:
 - Vision: line of sight, distance, movement, and lighting modifiers.
@@ -95,7 +152,7 @@ Example reactions:
 
 Fear and aggression must be species- and context-dependent. Avoid making all wildlife attack the player on sight.
 
-## 6. Domestic ownership, care, and work
+## 7. Domestic ownership, care, and work
 
 Where supported by gameplay, domestic animals can have:
 - Owner/handler and home location.
@@ -109,7 +166,7 @@ Ownership and trust should be explicit state, not inferred from proximity. A str
 
 Potential gameplay uses include companion dogs, guard dogs at properties, horses for transport, and livestock at farms. These are optional content layers and should be implemented only when the related player systems exist.
 
-## 7. Wildlife ecology and population
+## 8. Wildlife ecology and population
 
 Wildlife should spawn in valid habitats and follow daily/seasonal activity profiles where the world supports them.
 
@@ -123,7 +180,7 @@ Wildlife should spawn in valid habitats and follow daily/seasonal activity profi
 
 Do not build a full ecological research simulator. The target is believable gameplay at a controlled performance cost.
 
-## 8. World and gameplay interactions
+## 9. World and gameplay interactions
 
 ### Player and pedestrians
 - Animals can approach, avoid, follow, warn, defend, or attack according to species and state.
@@ -146,7 +203,7 @@ Do not build a full ecological research simulator. The target is believable game
 - Use NavMesh for suitable ground movement, with custom links or movement modes for species that need them.
 - Flight, climbing, swimming, and mounted movement require dedicated movement capabilities; do not assume ordinary NavMesh handles them.
 
-## 9. Proposed C++ architecture
+## 10. Proposed C++ architecture
 
 Names are provisional until the actual Unreal module name is confirmed.
 
@@ -163,7 +220,7 @@ Names are provisional until the actual Unreal module name is confirmed.
 
 Keep species behavior modular. Avoid one giant controller full of species-name conditionals. Prefer data profiles plus small behavior policies or species-specific extensions where genuinely needed.
 
-## 10. Performance and simulation distance
+## 11. Performance and simulation distance
 
 - Near the player: full animal actor, animation, perception, and navigation.
 - Mid-distance: lower-frequency decisions and simplified group movement.
@@ -173,7 +230,7 @@ Keep species behavior modular. Avoid one giant controller full of species-name c
 - On pooling/reuse, clear owner, group, target, threat, and interaction state.
 - Save only stable, meaningful state; rebuild transient perception and navigation references after loading.
 
-## 11. Development phases
+## 12. Development phases
 
 1. Confirm the actual UE project and module before creating source files.
 2. Define species IDs, categories, behavior states, habitat tags, and event payloads.
@@ -185,18 +242,20 @@ Keep species behavior modular. Avoid one giant controller full of species-name c
 8. Integrate road hazards, pedestrian reactions, gangs, crime, and save/load through interfaces.
 9. Profile crowded areas and test edge cases: startled herd, animal trapped by traffic, injured owned animal, predator/prey encounter, group leader removed, and save/load during a flee state.
 
-## 12. Acceptance criteria
+## 13. Acceptance criteria
 
 A first playable animal milestone should demonstrate:
 - At least one domestic and one wild species with distinct behavior.
 - Species-specific perception and reactions rather than a universal attack-on-player rule.
 - Group movement for at least one herd/pack species.
+- At least one bird species can take off, fly, avoid obstacles, and land/perch without teleporting.
+- At least one flocking bird species demonstrates group cohesion with individual variation and a shared threat response.
 - Animals spawn only in valid regions and respect population caps.
 - Vehicles and pedestrians can react to animals without navigation deadlocks.
 - Distant simulation is bounded and does not require every animal to remain spawned.
 - Important domestic ownership and animal state survive save/load.
 - Actual UE 5.8 build and test results are reported honestly.
 
-## 13. Current status
+## 14. Current status
 
 This is a design specification only. The repository state must be checked for an actual .uproject, module, and gameplay source before implementation. No animal C++ code, Unreal build, or gameplay test is claimed.
