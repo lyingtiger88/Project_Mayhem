@@ -98,7 +98,33 @@ These are provisional design responsibilities, not confirmed source files or cla
 - A flock component for cohesion, separation, alignment, group goals, and alarm propagation.
 - Optional nest/roost data and seasonal migration policy, enabled only where required.
 
-## 4. Shared species definition and runtime state
+## 4. Limited insect system
+
+The insect feature is deliberately restricted to exactly four gameplay groups:
+1. **Cockroaches (سوسک):** small ground-dwelling insects that scatter into cracks, drains, trash areas, and dark corners when disturbed. They are ambient environmental life, not combat enemies.
+2. **Butterflies (پروانه):** visual ambient insects that flutter around suitable flowers and vegetation, rest on plants, and scatter when approached. Keep their movement light and non-disruptive.
+3. **Bees (زنبور):** appear around flowers and designated hive/nest locations, forage between flowers and the nest, and may defend the nest when the player or another threat gets too close. Avoid treating every bee as automatically aggressive.
+4. **Ants (مورچه):** move along visible ground trails between nest entrances and food sources, carry small food items where practical, and react to trail disruption or threats near the nest.
+
+### Scope limits
+
+- Do not add other insect types to the planned roster unless the user explicitly changes this requirement.
+- No full insect ecosystem, insect breeding simulation, complex colony economy, or individual life-cycle simulation is required.
+- Use lightweight behavior and low population/update budgets; distant or tiny insects may be represented by simple ambient effects rather than full AI actors.
+- Insects are environmental wildlife and should not be forced into domestic ownership, riding, companion, or general animal command systems.
+- Bees and ants may use simple group/nest logic; cockroaches and butterflies should remain low-cost ambient behaviors.
+- Species-specific reactions must be readable but restrained, and must not create unnecessary combat or mission complexity.
+
+### Insect acceptance criteria
+
+- Only cockroaches, butterflies, bees, and ants are included in the approved insect scope.
+- Cockroaches scatter and seek cover when disturbed.
+- Butterflies flutter around suitable vegetation and flee from nearby disturbance.
+- Bees forage between flowers and a nest, with defensive behavior limited to nest threats.
+- Ants follow trails between a nest and food sources with simple group response.
+- Insects use bounded counts and lightweight updates, with no unbounded spawning or expensive per-frame AI.
+
+## 5. Shared species definition and runtime state
 
 Use a data-driven species definition containing:
 - Stable SpeciesId, display name, category, size class, and habitat tags.
@@ -112,7 +138,7 @@ Use a data-driven species definition containing:
 
 Runtime state may include health, hunger, thirst, fatigue, fear, stress, injury, current task, social group, owner/handler, home area, and last known threats. Do not simulate every need with a per-frame tick; use scheduled updates and meaningful events.
 
-## 5. Behavior model
+## 6. Behavior model
 
 Use a shared animal decision framework with species-specific state transitions. Example states:
 - Idle / Resting
@@ -134,7 +160,7 @@ Not every species supports every state. A rabbit should not use a wolf's combat 
 
 Decision priority should consider immediate danger, injury, essential needs, social bonds, assigned domestic tasks, and ambient activity. Add reaction delays and imperfect perception so animals do not behave like omniscient sensors.
 
-## 6. Perception and reactions
+## 7. Perception and reactions
 
 Animals can use tuned combinations of:
 - Vision: line of sight, distance, movement, and lighting modifiers.
@@ -152,7 +178,7 @@ Example reactions:
 
 Fear and aggression must be species- and context-dependent. Avoid making all wildlife attack the player on sight.
 
-## 7. Domestic ownership, care, and work
+## 8. Domestic ownership, care, and work
 
 Where supported by gameplay, domestic animals can have:
 - Owner/handler and home location.
@@ -166,7 +192,7 @@ Ownership and trust should be explicit state, not inferred from proximity. A str
 
 Potential gameplay uses include companion dogs, guard dogs at properties, horses for transport, and livestock at farms. These are optional content layers and should be implemented only when the related player systems exist.
 
-## 8. Wildlife ecology and population
+## 9. Wildlife ecology and population
 
 Wildlife should spawn in valid habitats and follow daily/seasonal activity profiles where the world supports them.
 
@@ -180,7 +206,7 @@ Wildlife should spawn in valid habitats and follow daily/seasonal activity profi
 
 Do not build a full ecological research simulator. The target is believable gameplay at a controlled performance cost.
 
-## 9. World and gameplay interactions
+## 10. World and gameplay interactions
 
 ### Player and pedestrians
 - Animals can approach, avoid, follow, warn, defend, or attack according to species and state.
@@ -203,7 +229,7 @@ Do not build a full ecological research simulator. The target is believable game
 - Use NavMesh for suitable ground movement, with custom links or movement modes for species that need them.
 - Flight, climbing, swimming, and mounted movement require dedicated movement capabilities; do not assume ordinary NavMesh handles them.
 
-## 10. Proposed C++ architecture
+## 11. Proposed C++ architecture
 
 Names are provisional until the actual Unreal module name is confirmed.
 
@@ -220,7 +246,7 @@ Names are provisional until the actual Unreal module name is confirmed.
 
 Keep species behavior modular. Avoid one giant controller full of species-name conditionals. Prefer data profiles plus small behavior policies or species-specific extensions where genuinely needed.
 
-## 11. Performance and simulation distance
+## 12. Performance and simulation distance
 
 - Near the player: full animal actor, animation, perception, and navigation.
 - Mid-distance: lower-frequency decisions and simplified group movement.
@@ -230,7 +256,7 @@ Keep species behavior modular. Avoid one giant controller full of species-name c
 - On pooling/reuse, clear owner, group, target, threat, and interaction state.
 - Save only stable, meaningful state; rebuild transient perception and navigation references after loading.
 
-## 12. Development phases
+## 13. Development phases
 
 1. Confirm the actual UE project and module before creating source files.
 2. Define species IDs, categories, behavior states, habitat tags, and event payloads.
@@ -242,7 +268,7 @@ Keep species behavior modular. Avoid one giant controller full of species-name c
 8. Integrate road hazards, pedestrian reactions, gangs, crime, and save/load through interfaces.
 9. Profile crowded areas and test edge cases: startled herd, animal trapped by traffic, injured owned animal, predator/prey encounter, group leader removed, and save/load during a flee state.
 
-## 13. Acceptance criteria
+## 14. Acceptance criteria
 
 A first playable animal milestone should demonstrate:
 - At least one domestic and one wild species with distinct behavior.
@@ -250,12 +276,13 @@ A first playable animal milestone should demonstrate:
 - Group movement for at least one herd/pack species.
 - At least one bird species can take off, fly, avoid obstacles, and land/perch without teleporting.
 - At least one flocking bird species demonstrates group cohesion with individual variation and a shared threat response.
+- The insect roster is limited to cockroaches, butterflies, bees, and ants, each with its defined lightweight ambient behavior.
 - Animals spawn only in valid regions and respect population caps.
 - Vehicles and pedestrians can react to animals without navigation deadlocks.
 - Distant simulation is bounded and does not require every animal to remain spawned.
 - Important domestic ownership and animal state survive save/load.
 - Actual UE 5.8 build and test results are reported honestly.
 
-## 14. Current status
+## 15. Current status
 
 This is a design specification only. The repository state must be checked for an actual .uproject, module, and gameplay source before implementation. No animal C++ code, Unreal build, or gameplay test is claimed.
