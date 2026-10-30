@@ -14,23 +14,30 @@ This is the live handoff and change log for any shared AI agent or contributor w
 
 Project Mayhem is an independent project. Do not merge its assumptions, source files, architecture, or task history with the user's other Unreal projects unless the user explicitly asks.
 
+## Approved product direction
+
+- World inspiration: realistic.
+- Target platforms: high-end PC and current-generation consoles.
+- World scale: massive, multi-region ambition.
+- Design focus: balanced story, action, freedom, and systemic simulation.
+- Release strategy: single-player first; multiplayer is a future option, not a current implementation target.
+- Architecture: modular, data-driven, event-driven C++.
+
 ## Verified repository state
 
-The repository currently contains project documentation files:
-- `AGENTS.md`: agent instructions and mandatory inspection workflow.
-- `HANDOFF.md`: this file; architecture, requirements, next steps, and change log.
-- `README.md`: project overview and architecture/roadmap.
-- `GANG_SYSTEM.md`: design specification for gang factions, territories, relationships, player reputation, squad AI, and performance.\n- `ANIMAL_SYSTEM.md`: design specification for domestic animals, wildlife, species behavior, habitats, population simulation, and world interactions.
+The live main branch now contains both the design documents and an initial Unreal Engine 5.8 C++ project scaffold.
 
-The repository tree was inspected on 2026-10-29 and these were the files returned by GitHub. No `.uproject`, `Source/` directory, or gameplay C++ implementation appeared in that tree. Re-check the live tree before acting because the repository may have changed since this note was written.
+- Root Unreal project descriptor: ProjectMayhem.uproject.
+- Build targets: Source/ProjectMayhem.Target.cs and Source/ProjectMayhemEditor.Target.cs.
+- Runtime module: Source/ProjectMayhem/ProjectMayhem.Build.cs.
+- Core C++ primitives:
+  - UPMWorldEventSubsystem: publishes typed world events and keeps a bounded recent-event history.
+  - UPMEntityIdentityComponent: assigns a stable GUID to an Actor; persistence across loads still requires the future Save system to serialize and restore it.
+  - UPMWorldClockSubsystem: tracks world-local game time, day progress, pause, and time scale.
+- Architecture and roadmap: Docs/ARCHITECTURE.md and Docs/ROADMAP.md.
+- Unreal Engine target: 5.8; module name/API macro: ProjectMayhem / PROJECTMAYHEM_API.
 
-- Architecture documented: yes
-- Gameplay C++ implementation: not present in the inspected tree
-- Unreal project file (`.uproject`): not present in the inspected tree
-- Build/test status: no Unreal build or gameplay test has been run from this workflow
-- Playable build: not established
-
-Do not claim compilation or a playable build. Before implementing engine source, confirm whether the actual Unreal project/module exists elsewhere or get explicit approval to establish a project skeleton. Never invent the module name or API export macro.
+**Validation status:** GitHub accepted the source and project files. No Unreal Editor, UnrealBuildTool, or C++ compiler build has been run in this workflow. The project is a committed starter scaffold, not a verified build or playable game. Generate project files and compile it in an installed Unreal Engine 5.8 environment before adding dependent gameplay systems.
 
 ## Agreed gameplay requirements
 
@@ -157,6 +164,18 @@ Whenever a change is actually made to this repository:
 - Updated this handoff to reflect the inspected live repository tree, document the required handoff synchronization rule, and record the AGENTS/README discovery improvements above.
 - Commit: `a9482d2079d9ffc590fe34dc68e23d138ac095b3`.
 - Validation: the update was accepted by GitHub; no Unreal build or gameplay tests were run.
+
+## Change log
+
+### 2026-10-30 — Unreal project scaffold and core services committed
+- Added root ProjectMayhem.uproject targeting Unreal Engine 5.8, game/editor targets, the ProjectMayhem C++ module, and Unreal .gitignore rules.
+- Added UPMWorldEventSubsystem with event IDs, source/subject IDs, location, severity, confidence, world timestamp, broadcast, and a bounded 256-event recent history.
+- Added UPMEntityIdentityComponent for stable per-Actor GUID identity. SaveGame metadata is present, but Save/Load serialization is not implemented yet.
+- Added UPMWorldClockSubsystem with elapsed game time, day progress, pause, and time scale.
+- Added Docs/ARCHITECTURE.md and Docs/ROADMAP.md; updated README.md to reflect the approved realistic / high-end / massive / balanced / single-player-first direction.
+- Commit: eafd5530d6e492a712cdbc90cac511ffaa79d15f.
+- Validation: GitHub accepted the commit and main was advanced using an expected-head check. No UE 5.8 compile, editor launch, runtime test, or playable build has been performed.
+- Next step: open ProjectMayhem.uproject in Unreal Engine 5.8, generate project files, compile the Development Editor target, and resolve any toolchain/API issues before expanding gameplay code.
 
 ## Working rules for agents
 
