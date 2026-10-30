@@ -2,7 +2,9 @@
 
 > **AI agents and contributors: start with [AGENTS.md](AGENTS.md), then read [HANDOFF.md](HANDOFF.md).**
 >
-> Gang/faction gameplay design: [GANG_SYSTEM.md](GANG_SYSTEM.md).\n> Animal and wildlife gameplay design: [ANIMAL_SYSTEM.md](ANIMAL_SYSTEM.md).
+> Gang/faction gameplay design: [GANG_SYSTEM.md](GANG_SYSTEM.md).
+> Animal and wildlife gameplay design: [ANIMAL_SYSTEM.md](ANIMAL_SYSTEM.md).
+> Procedural and physics-assisted animation design: [ANIMATION_SYSTEM.md](ANIMATION_SYSTEM.md).
 
 
 Open-world action game prototype built with Unreal Engine 5.8 and C++.
