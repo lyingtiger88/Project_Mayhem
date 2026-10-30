@@ -6,7 +6,7 @@ public class ProjectMayhemEditorTarget : TargetRules
     public ProjectMayhemEditorTarget(TargetInfo Target) : base(Target)
     {
         Type = TargetType.Editor;
-        DefaultBuildSettings = BuildSettingsVersion.V5;
+        DefaultBuildSettings = BuildSettingsVersion.V7;
         ExtraModuleNames.Add("ProjectMayhem");
     }
 }
