@@ -82,3 +82,17 @@ The Python API is editor-only and is not a gameplay scripting dependency.
 Epic documentation:
 https://dev.epicgames.com/documentation/unreal-engine/scripting-the-unreal-editor-using-python
 https://dev.epicgames.com/documentation/en-us/unreal-engine/scripting-and-automating-the-unreal-editor
+
+
+## Fixing an empty map or empty Content Browser
+
+A fresh clone contains text source and Python scripts but **no committed .umap or .uasset files**. Unreal's Content Browser does not display the Python script as an Unreal asset. This is expected until the generator is executed in Unreal Editor.
+
+1. Pull the latest main branch, close and reopen ProjectMayhem.uproject in Unreal Engine 5.8.
+2. Enable Python Editor Script Plugin and Editor Scripting Utilities if necessary, then restart.
+3. Choose **Tools > Execute Python Script** and browse to the local file `Content/Python/Build_PM_FirstDistrict.py` (via the filesystem, not Content Browser).
+4. The script creates or opens `/Game/Maps/PM_FirstDistrict`, creates the city greybox, and saves it. Check Output Log for `Project Mayhem: first district blockout complete`.
+5. Open **Content Browser > Game > Maps**, double-click `PM_FirstDistrict` if it is not open, and use **F** on a selected actor to frame the scene.
+6. Press **Save All**. The map is a binary `.umap` file generated locally; it will not appear on another machine via Git until tracked or distributed separately.
+
+The script works on its dedicated map and deletes only its own tagged blockout actors on subsequent runs. Back up locally customized generated maps before rerunning. This is untested editor automation: report an Output Log traceback if the Python API differs in the installed engine build.
