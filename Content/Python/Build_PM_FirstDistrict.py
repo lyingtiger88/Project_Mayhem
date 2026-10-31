@@ -1,4 +1,4 @@
-"""Build a repeatable urban greybox district in the currently open Unreal level.
+"""Build a repeatable urban greybox district in a dedicated Unreal level.
 
 Run from Unreal Editor: Tools > Execute Python Script.
 Requires Python Editor Script Plugin and Editor Scripting Utilities.
@@ -16,6 +16,16 @@ ROOT_FOLDERS = [
     "/Game/Environment/Props", "/Game/Characters", "/Game/Vehicles",
     "/Game/Materials", "/Game/Textures", "/Game/Audio", "/Game/UI", "/Game/Data",
 ]
+
+# Open the target map first to avoid writing into an unrelated open level.
+if unreal.EditorAssetLibrary.does_asset_exist(MAP_PACKAGE):
+    world = unreal.EditorLevelLibrary.load_level(MAP_PACKAGE)
+    if not world:
+        raise RuntimeError("Could not load existing Mayhem map")
+else:
+    if not unreal.EditorLevelLibrary.new_level(MAP_PACKAGE):
+        raise RuntimeError("Could not create Mayhem map")
+    world = unreal.EditorLevelLibrary.get_editor_world()
 
 actor_subsystem = unreal.get_editor_subsystem(unreal.EditorActorSubsystem)
 cube = unreal.load_asset("/Engine/BasicShapes/Cube.Cube")
@@ -56,7 +66,7 @@ def box(label, x, y, z, sx, sy, sz):
     return spawn_mesh(cube, label, (x, y, z), (sx, sy, sz))
 
 # 300 m x 300 m site base.
-box("PM_Ground_Base", 0, 0, -180, 150, 150, 1.5)
+box("PM_Ground_Base", 0, 0, -180, 300, 300, 1.5)
 
 # Three streets in each direction, with raised sidewalks.
 road_centers = [-10000, 0, 10000]
