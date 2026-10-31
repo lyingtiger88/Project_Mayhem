@@ -214,3 +214,10 @@ Whenever a change is actually made to this repository:
 - Added empty Content Browser diagnosis and step-by-step local execution to `Docs/ASSET_PIPELINE.md`.
 - Documentation commit: `64bad8dd4215d85552fb106f637b79ac2c67d61d`.
 - Validation: GitHub writes accepted; the Python script **has not been run in Unreal Editor**. A generated `.umap` is not committed. Requires a local UE 5.8 execution and Output Log review.
+
+
+### 2026-10-31 — First district daylight pass
+- User confirmed the generated first district exists in Unreal Editor (screenshot showed `PM_FirstDistrict` and 486 actors).
+- Extended `Content/Python/Build_PM_FirstDistrict.py` with a tagged directional sun, skylight, sky atmosphere, and exponential height fog so reruns replace the previous generated lighting safely.
+- Commit: `b96452b7936d04b8c784db2fc69f1fb5aa1c6e0a`.
+- Validation: script edit committed; lighting has not yet been executed/verified in Unreal. Re-run the script in Editor and inspect Output Log; if any Python API property warning appears, share it for compatibility adjustment.
