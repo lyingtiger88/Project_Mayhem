@@ -133,6 +133,59 @@ for bx in block_centers:
             spawn_mesh(cylinder, "PM_Tree_Trunk", (x, y, 170), (0.22, 0.22, 1.7))
             spawn_mesh(sphere, "PM_Tree_Canopy", (x, y, 500), (1.15, 1.15, 1.25))
 
+
+# Basic daylight rig: keep the greybox readable before final art is migrated.
+def spawn_environment_actor(actor_class, label, location, rotation=None):
+    global created
+    actor = actor_subsystem.spawn_actor_from_class(
+        actor_class,
+        unreal.Vector(location[0], location[1], location[2]),
+        rotation or unreal.Rotator(0.0, 0.0, 0.0))
+    if not actor:
+        unreal.log_warning("Project Mayhem: could not create " + label)
+        return None
+    actor.set_actor_label(label)
+    actor.tags = list(actor.tags) + [TAG]
+    created += 1
+    return actor
+
+sun = spawn_environment_actor(
+    unreal.DirectionalLight, "PM_Sun_Directional",
+    (0.0, 0.0, 30000.0), unreal.Rotator(-45.0, -35.0, 0.0))
+if sun:
+    sun_component = sun.get_component_by_class(unreal.DirectionalLightComponent)
+    if sun_component:
+        try:
+            sun_component.set_editor_property("intensity", 100000.0)
+            sun_component.set_editor_property("cast_shadows", True)
+        except Exception as error:
+            unreal.log_warning("Project Mayhem: sun settings need review: " + str(error))
+
+sky = spawn_environment_actor(
+    unreal.SkyLight, "PM_Sky_Light", (0.0, 0.0, 25000.0))
+if sky:
+    sky_component = sky.get_component_by_class(unreal.SkyLightComponent)
+    if sky_component:
+        try:
+            sky_component.set_editor_property("intensity", 1.0)
+            sky_component.set_editor_property("real_time_capture", True)
+        except Exception as error:
+            unreal.log_warning("Project Mayhem: skylight settings need review: " + str(error))
+
+spawn_environment_actor(
+    unreal.SkyAtmosphere, "PM_Sky_Atmosphere", (0.0, 0.0, 0.0))
+
+fog = spawn_environment_actor(
+    unreal.ExponentialHeightFog, "PM_Height_Fog", (0.0, 0.0, 0.0))
+if fog:
+    fog_component = fog.get_component_by_class(unreal.ExponentialHeightFogComponent)
+    if fog_component:
+        try:
+            fog_component.set_editor_property("fog_density", 0.008)
+            fog_component.set_editor_property("fog_height_falloff", 0.2)
+        except Exception as error:
+            unreal.log_warning("Project Mayhem: fog settings need review: " + str(error))
+
 # Player start and navigation bounds for later gameplay milestones.
 start = actor_subsystem.spawn_actor_from_class(
     unreal.PlayerStart, unreal.Vector(-7200.0, -7200.0, 120.0), unreal.Rotator(0, 45, 0))
