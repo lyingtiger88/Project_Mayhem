@@ -206,3 +206,11 @@ Whenever a change is actually made to this repository:
 - Summarize changed files, the reason for each change, build/test status, and any manual Unreal Editor setup required.
 - Preserve user changes and avoid force-pushing or destructive history rewrites.
 - Commit messages should describe the actual change, not the intended future result.
+
+
+### 2026-10-31 — District generator safety and map-size fix
+- Updated `Content/Python/Build_PM_FirstDistrict.py` to create or load `/Game/Maps/PM_FirstDistrict` before editing actors, rather than modifying an unrelated currently open level. Fixed base ground to cover 300 m square in Unreal's 100 cm primitive scale.
+- Code commit: `57fb1d284df807ae4623182ed5de73b9ebe90ba1`.
+- Added empty Content Browser diagnosis and step-by-step local execution to `Docs/ASSET_PIPELINE.md`.
+- Documentation commit: `64bad8dd4215d85552fb106f637b79ac2c67d61d`.
+- Validation: GitHub writes accepted; the Python script **has not been run in Unreal Editor**. A generated `.umap` is not committed. Requires a local UE 5.8 execution and Output Log review.
